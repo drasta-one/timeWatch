@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stylish Stopwatch</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #282c34;
+            color: #61dafb;
+            font-family: 'Arial', sans-serif;
+        }
+
+        #stopwatch {
+            font-size: 4em;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #61dafb;
+            color: #282c34;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45aaf2;
+        }
+    </style>
+</head>
+<body>
+    <div id="stopwatch">00:00:00</div>
+
+    <script>
+        let timer;
+        let seconds = 0;
+        let minutes = 0;
+        let hours = 0;
+
+        function startStopwatch() {
+            timer = setInterval(updateStopwatch, 1000);
+        }
+
+        function stopStopwatch() {
+            clearInterval(timer);
+        }
+
+        function resetStopwatch() {
+            stopStopwatch();
+            seconds = 0;
+            minutes = 0;
+            hours = 0;
+            updateStopwatch();
+        }
+
+        function updateStopwatch() {
+            seconds++;
+            if (seconds === 60) {
+                seconds = 0;
+                minutes++;
+                if (minutes === 60) {
+                    minutes = 0;
+                    hours++;
+                }
+            }
+
+            const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('stopwatch').innerText = formattedTime;
+        }
+    </script>
+    
+    <button onclick="startStopwatch()">Start</button>
+    <button onclick="stopStopwatch()">Stop</button>
+    <button onclick="resetStopwatch()">Reset</button>
+</body>
+</html>
